@@ -86,6 +86,7 @@ a { color: inherit; }
 .section-head { display: grid; gap: 14px; max-width: 640px; margin-bottom: 44px; }
 .section-head h2 { font-size: clamp(32px, 4.6vw, 52px); font-weight: 800; }
 .section-head p { color: var(--ink-soft); font-size: 18px; }
+.section-head strong { color: var(--ink); font-weight: 700; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -209,7 +210,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
 .pkg { border: 2px solid var(--line); border-radius: var(--r); padding: 30px 28px; display: flex; flex-direction: column; gap: 16px; background: var(--sky); min-width: 0; }
 .pkg--featured { background: var(--night); color: var(--night-fg); border-color: var(--night); }
-.pkg .num { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 .pkg h3 { font-size: 28px; font-weight: 800; }
 .pkg ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 16px; }
 .pkg li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
@@ -379,11 +379,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="section-head">
         <span class="eyebrow">Pacotes</span>
         <h2 id="pacotes-t">Escolha o formato que cabe no seu evento.</h2>
-        <p>Do envio simples à experiência completa com a nossa equipe.</p>
+        <p>Do envio simples à experiência completa com a nossa equipe. Atendemos eventos corporativos, <strong>festas de aniversário</strong> e <strong>casamentos</strong>.</p>
       </div>
       <div class="packages">
         <article class="pkg">
-          <span class="num">Pacote 1</span>
           <h3>Entrega Simples</h3>
           <ul>
             <li>Fatias dos 3 sabores: Skyberry, Skylemon e Banoffee</li>
@@ -391,11 +390,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>Entrega no local, no horário combinado</li>
           </ul>
           <p class="ideal"><strong>Ideal para</strong> quem já tem equipe de organização: RH, coordenadores de evento e buffets.</p>
-          <a class="btn btn--ghost" href="#orcamento" data-pacote="Pacote 1 — Entrega Simples">Quero este</a>
+          <a class="btn btn--ghost" href="#orcamento" data-pacote="Entrega Simples">Quero este</a>
         </article>
         <article class="pkg pkg--featured">
           <span class="badge">Experiência completa</span>
-          <span class="num">Pacote 2</span>
           <h3>Promotor + Carrinho</h3>
           <ul>
             <li>Fatias dos 3 sabores</li>
@@ -403,10 +401,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>Promotor treinado que serve, apresenta os sabores e atende os convidados</li>
           </ul>
           <p class="ideal"><strong>Ideal para</strong> lançamentos de produto, feiras, congressos e eventos com convidados externos.</p>
-          <a class="btn btn--primary" href="#orcamento" data-pacote="Pacote 2 — Promotor + Carrinho">Quero este</a>
+          <a class="btn btn--primary" href="#orcamento" data-pacote="Promotor + Carrinho">Quero este</a>
         </article>
         <article class="pkg">
-          <span class="num">Pacote 3</span>
           <h3>Sabor à Escolha</h3>
           <ul>
             <li>Um sabor do cardápio completo da Céu na Boca</li>
@@ -414,7 +411,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>Uma experiência exclusiva, diferente de todos os outros eventos</li>
           </ul>
           <p class="ideal"><strong>Ideal para</strong> eventos premium e temáticos que querem se destacar.</p>
-          <a class="btn btn--ghost" href="#orcamento" data-pacote="Pacote 3 — Sabor à Escolha">Quero este</a>
+          <a class="btn btn--ghost" href="#orcamento" data-pacote="Sabor à Escolha">Quero este</a>
         </article>
       </div>
     </div>
@@ -522,6 +519,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <option>Treinamento</option>
               <option>Happy hour</option>
               <option>Feira ou congresso</option>
+              <option>Festa de aniversário</option>
+              <option>Casamento</option>
               <option>Outro</option>
             </select>
           </div>
@@ -531,9 +530,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <label for="pacote">Pacote</label>
             <select id="pacote" name="pacote">
               <option>Ainda não sei, quero ajuda</option>
-              <option>Pacote 1 — Entrega Simples</option>
-              <option>Pacote 2 — Promotor + Carrinho</option>
-              <option>Pacote 3 — Sabor à Escolha</option>
+              <option>Entrega Simples</option>
+              <option>Promotor + Carrinho</option>
+              <option>Sabor à Escolha</option>
             </select>
           </div>
           <div class="field field--full"><label for="obs">Algo mais?</label><textarea id="obs" name="obs" placeholder="Local, horário, se é um evento recorrente..."></textarea></div>
@@ -555,7 +554,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <h2 id="gal-t">Um pedacinho do nosso Instagram.</h2>
           <p>Fatias, bastidores e eventos. Acompanhe as novidades no @ceunabocaoficial.</p>
         </div>
-        <a class="btn btn--ghost" href="https://www.instagram.com/ceunabocaoficial/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg> Seguir @ceunabocaoficial</a>
       </div>
       <div class="gallery" id="ig-gallery">
         <a href="https://www.instagram.com/ceunabocaoficial/" target="_blank" rel="noopener"><img src="images/skyberry.webp" alt="Skyberry no Instagram da Céu na Boca" width="900" height="900" loading="lazy" decoding="async"><span class="ig-badge"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></span></a>
@@ -634,7 +632,11 @@ update();
 // Galeria do Instagram: cole aqui os links dos posts do @ceunabocaoficial
 // (ex.: 'https://www.instagram.com/p/XXXXXXXXXXX/'). Com a lista vazia,
 // a galeria mostra as fotos da pagina com link para o perfil.
-const INSTAGRAM_POSTS = [];
+const INSTAGRAM_POSTS = [
+  'https://www.instagram.com/p/DfumvuKxedm/',
+  'https://www.instagram.com/p/Da8fnOCxzwX/',
+  'https://www.instagram.com/reel/Da3hD8Ysx8S/'
+];
 
 if (INSTAGRAM_POSTS.length) {
   const g = document.getElementById('ig-gallery');

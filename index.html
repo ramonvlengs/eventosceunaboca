@@ -213,6 +213,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pkg h3 { font-size: 28px; font-weight: 800; }
 .pkg ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 16px; }
 .pkg li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.inline-link { color: inherit; font-weight: 700; text-decoration: underline; text-decoration-color: var(--berry); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.inline-link:hover { color: var(--berry); }
 .pkg li::before { content: "✓"; font-weight: 800; color: var(--berry); }
 .pkg .ideal { margin-top: auto; padding-top: 16px; border-top: 1px solid currentColor; border-top-color: color-mix(in srgb, currentColor 25%, transparent); font-size: 15px; opacity: .85; }
 .pkg .badge { align-self: flex-start; background: var(--berry); color: var(--berry-ink); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: .08em; }
@@ -406,7 +408,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <article class="pkg">
           <h3>Sabor à Escolha</h3>
           <ul>
-            <li>Um sabor do cardápio completo da Céu na Boca</li>
+            <li><span>Um sabor do cardápio completo da <a class="inline-link" href="https://ceunaboca.com" target="_blank" rel="noopener">Céu na Boca</a></span></li>
             <li>Produzido especialmente para o seu evento</li>
             <li>Uma experiência exclusiva, diferente de todos os outros eventos</li>
           </ul>

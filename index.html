@@ -192,16 +192,7 @@ body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 
 .flavor .note { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--berry); }
 .flavor p { color: var(--ink-soft); font-size: 16px; }
 .flavor blockquote { margin: auto 0 0; padding-top: 16px; border-top: 1px dashed var(--line); font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.3; }
-@media (max-width: 900px) {
-  .flavors { grid-template-columns: 1fr; }
-  .flavor { flex-direction: row; }
-  .flavor-photo { flex: 0 0 42%; aspect-ratio: auto; }
-}
-@media (max-width: 600px) {
-  .flavor { flex-direction: column; }
-  .flavor-photo { flex: none; aspect-ratio: 5 / 4; }
-  .flavor-body { padding: 22px 20px 24px; }
-}
+@media (max-width: 600px) { .flavor-body { padding: 22px 20px 24px; } }
 
 /* Faixas de CTA entre secoes */
 .cta-strip { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; padding: 26px 30px; border-radius: var(--r); background: var(--cloud); border: 1px solid var(--line); }
@@ -254,23 +245,23 @@ body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 
 .pkg .badge { align-self: flex-start; background: var(--berry); color: var(--berry-ink); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: .08em; }
 .pkg .btn { align-self: stretch; }
 .pkg--featured .btn--ghost { border-color: var(--night-fg); color: var(--night-fg); }
-.pkg-dots { display: none; }
-/* Tablet e celular: carrossel horizontal com o proximo card aparecendo na borda */
+.carousel-dots { display: none; }
+/* Tablet e celular: sabores e pacotes em carrossel, com o proximo card aparecendo na borda */
 @media (max-width: 960px) {
-  .packages {
+  .carousel {
     display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
     margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
     padding: 4px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px));
     scroll-padding-inline: max(16px, env(safe-area-inset-left, 0px));
     scrollbar-width: none;
   }
-  .packages::-webkit-scrollbar { display: none; }
-  .pkg { flex: 0 0 min(84%, 380px); scroll-snap-align: start; }
-  .pkg-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
-  .pkg-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: width .25s ease, background .25s ease; }
-  .pkg-dots button[aria-current="true"] { width: 26px; background: var(--berry); }
+  .carousel::-webkit-scrollbar { display: none; }
+  .carousel > * { flex: 0 0 min(84%, 380px); scroll-snap-align: start; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .carousel-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: width .25s ease, background .25s ease; }
+  .carousel-dots button[aria-current="true"] { width: 26px; background: var(--berry); }
 }
-@media (prefers-reduced-motion: reduce) { .pkg-dots button { transition: none; } .packages { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .carousel-dots button { transition: none; } }
 
 /* Para quem */
 .who { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -427,7 +418,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <h2 id="sabores-t">Três fatias, três jeitos de agradar.</h2>
         <p>Escolhemos sabores que cobrem os principais paladares, do mais leve ao mais afetivo.</p>
       </div>
-      <div class="flavors">
+      <div class="flavors carousel" id="flavor-track" tabindex="0" aria-label="Sabores, deslize para ver todos">
         <article class="flavor">
           <figure class="flavor-photo flavor-photo--berry"><img src="images/skyberry.webp" alt="Fatia de Skyberry com morangos, mousse de leite condensado e suspiros, sobre prato azul" width="900" height="900" loading="lazy" decoding="async"></figure>
           <div class="flavor-body">
@@ -456,6 +447,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </div>
         </article>
       </div>
+      <div class="carousel-dots" id="flavor-dots" aria-label="Escolher sabor"></div>
       <div class="cta-strip">
         <p>Quer provar antes de decidir?<small>Fazemos uma degustação com você, sem compromisso.</small></p>
         <div class="actions"><a class="btn btn--primary" href="#orcamento" data-wa="Olá, Céu na Boca! Gostaria de agendar uma degustação das fatias para um evento.">Agendar degustação</a></div>
@@ -470,7 +462,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <h2 id="pacotes-t">Escolha o formato que cabe no seu evento.</h2>
         <p>Do envio simples à experiência completa com a nossa equipe. Atendemos eventos corporativos, <strong>festas de aniversário</strong> e <strong>casamentos</strong>.</p>
       </div>
-      <div class="packages" id="pkg-track" tabindex="0" aria-label="Pacotes, deslize para ver todos">
+      <div class="packages carousel" id="pkg-track" tabindex="0" aria-label="Pacotes, deslize para ver todos">
         <article class="pkg">
           <h3>Entrega Simples</h3>
           <ul>
@@ -503,7 +495,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <a class="btn btn--ghost" href="#orcamento" data-pacote="Sabor à Escolha">Quero este</a>
         </article>
       </div>
-      <div class="pkg-dots" id="pkg-dots" aria-label="Escolher pacote"></div>
+      <div class="carousel-dots" id="pkg-dots" aria-label="Escolher pacote"></div>
     </div>
   </section>
 
@@ -751,25 +743,27 @@ if (steps && 'IntersectionObserver' in window && matchMedia('(max-width: 760px)'
   steps.querySelectorAll('li').forEach(li => io.observe(li));
 }
 
-// Pacotes (tablet/celular): pontos indicadores do carrossel
-const track = document.getElementById('pkg-track');
-const dotsBox = document.getElementById('pkg-dots');
-if (track && dotsBox) {
-  const cards = [...track.querySelectorAll('.pkg')];
+// Carrosseis (tablet/celular): sabores e pacotes, com pontos indicadores
+function initCarousel(trackId, dotsId) {
+  const track = document.getElementById(trackId);
+  const dotsBox = document.getElementById(dotsId);
+  if (!track || !dotsBox) return;
+  const cards = [...track.children];
   const names = cards.map(c => c.querySelector('h3').textContent);
   dotsBox.innerHTML = cards.map((_, i) => `<button type="button" aria-label="Ver ${names[i]}"></button>`).join('');
   const dots = [...dotsBox.children];
   const setActive = i => dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
   dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })));
-  const onScroll = () => {
+  track.addEventListener('scroll', () => {
     const x = track.scrollLeft + track.clientWidth * 0.3;
     let i = 0; cards.forEach((c, k) => { if (c.offsetLeft - cards[0].offsetLeft <= x) i = k; });
     if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) i = cards.length - 1;
     setActive(i);
-  };
-  track.addEventListener('scroll', onScroll, { passive: true });
+  }, { passive: true });
   setActive(0);
 }
+initCarousel('flavor-track', 'flavor-dots');
+initCarousel('pkg-track', 'pkg-dots');
 
 // Galeria do Instagram: cole aqui os links dos posts do @ceunabocaoficial
 // (ex.: 'https://www.instagram.com/p/XXXXXXXXXXX/'). Com a lista vazia,

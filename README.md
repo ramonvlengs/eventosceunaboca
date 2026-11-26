@@ -1,7 +1,7 @@
-# Landing page — Céu na Boca para eventos corporativos
+# Landing page — Céu na Boca para eventos
 
 Página única (`index.html`) para vender as fatias individuais da Céu na Boca em
-eventos corporativos: sabores, pacotes, dúvidas frequentes e pedido de
+eventos corporativos, festas de aniversário e casamentos: sabores, pacotes, dúvidas frequentes e pedido de
 orçamento pelo WhatsApp.
 
 - Arquivo autocontido: CSS, JS e a logo (em base64) estão dentro do `index.html`.

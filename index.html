@@ -247,7 +247,23 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pkg .badge { align-self: flex-start; background: var(--berry); color: var(--berry-ink); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; text-transform: uppercase; letter-spacing: .08em; }
 .pkg .btn { align-self: stretch; }
 .pkg--featured .btn--ghost { border-color: var(--night-fg); color: var(--night-fg); }
-@media (max-width: 960px) { .packages { grid-template-columns: 1fr; } }
+.pkg-dots { display: none; }
+/* Tablet e celular: carrossel horizontal com o proximo card aparecendo na borda */
+@media (max-width: 960px) {
+  .packages {
+    display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+    padding: 4px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px));
+    scroll-padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    scrollbar-width: none;
+  }
+  .packages::-webkit-scrollbar { display: none; }
+  .pkg { flex: 0 0 min(84%, 380px); scroll-snap-align: start; }
+  .pkg-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .pkg-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: width .25s ease, background .25s ease; }
+  .pkg-dots button[aria-current="true"] { width: 26px; background: var(--berry); }
+}
+@media (prefers-reduced-motion: reduce) { .pkg-dots button { transition: none; } .packages { scroll-behavior: auto; } }
 
 /* Para quem */
 .who { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -432,7 +448,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <h2 id="pacotes-t">Escolha o formato que cabe no seu evento.</h2>
         <p>Do envio simples à experiência completa com a nossa equipe. Atendemos eventos corporativos, <strong>festas de aniversário</strong> e <strong>casamentos</strong>.</p>
       </div>
-      <div class="packages">
+      <div class="packages" id="pkg-track" tabindex="0" aria-label="Pacotes, deslize para ver todos">
         <article class="pkg">
           <h3>Entrega Simples</h3>
           <ul>
@@ -465,6 +481,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <a class="btn btn--ghost" href="#orcamento" data-pacote="Sabor à Escolha">Quero este</a>
         </article>
       </div>
+      <div class="pkg-dots" id="pkg-dots" aria-label="Escolher pacote"></div>
     </div>
   </section>
 
@@ -710,6 +727,26 @@ if (steps && 'IntersectionObserver' in window && matchMedia('(max-width: 760px)'
     if (e.isIntersecting) { e.target.classList.add('is-on'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -40% 0px' });
   steps.querySelectorAll('li').forEach(li => io.observe(li));
+}
+
+// Pacotes (tablet/celular): pontos indicadores do carrossel
+const track = document.getElementById('pkg-track');
+const dotsBox = document.getElementById('pkg-dots');
+if (track && dotsBox) {
+  const cards = [...track.querySelectorAll('.pkg')];
+  const names = cards.map(c => c.querySelector('h3').textContent);
+  dotsBox.innerHTML = cards.map((_, i) => `<button type="button" aria-label="Ver ${names[i]}"></button>`).join('');
+  const dots = [...dotsBox.children];
+  const setActive = i => dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+  dots.forEach((d, i) => d.addEventListener('click', () => track.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })));
+  const onScroll = () => {
+    const x = track.scrollLeft + track.clientWidth * 0.3;
+    let i = 0; cards.forEach((c, k) => { if (c.offsetLeft - cards[0].offsetLeft <= x) i = k; });
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) i = cards.length - 1;
+    setActive(i);
+  };
+  track.addEventListener('scroll', onScroll, { passive: true });
+  setActive(0);
 }
 
 // Galeria do Instagram: cole aqui os links dos posts do @ceunabocaoficial

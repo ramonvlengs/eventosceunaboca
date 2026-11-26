@@ -27,6 +27,8 @@
   --night: #18264A;
   --night-fg: #F3F6FC;
   --logo-bg: transparent;
+  --wa: #25D366;
+  --wa-ink: #0B2B17;
 
   /* camadas das fatias (iguais nos dois temas) */
   --crust: #C9955A; --crust-dark: #A9733F;
@@ -188,6 +190,26 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .flavor-photo { flex: none; aspect-ratio: 5 / 4; }
   .flavor-body { padding: 22px 20px 24px; }
 }
+
+/* Faixas de CTA entre secoes */
+.cta-strip { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; padding: 26px 30px; border-radius: var(--r); background: var(--cloud); border: 1px solid var(--line); }
+.band--alt .cta-strip { background: var(--sky); }
+.cta-strip p { font-family: var(--f-display); font-weight: 700; font-size: clamp(20px, 2.2vw, 24px); line-height: 1.2; max-width: 30ch; }
+.cta-strip p small { display: block; margin-top: 6px; font-family: var(--f-body); font-weight: 500; font-size: 15px; color: var(--ink-soft); }
+.cta-strip .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 600px) { .cta-strip { padding: 22px 20px; } .cta-strip .actions, .cta-strip .btn { width: 100%; } }
+
+/* Botao flutuante de WhatsApp */
+.wa-float {
+  position: fixed; z-index: 30;
+  right: calc(18px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px 14px 16px; border-radius: 999px;
+  background: var(--wa); color: var(--wa-ink); font-weight: 700; font-size: 15px; text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18); transition: transform .2s ease, opacity .2s ease;
+}
+.wa-float:hover { transform: translateY(-2px); }
+.wa-float.is-hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
+@media (max-width: 600px) { .wa-float span { display: none; } .wa-float { padding: 15px; } }
 
 /* Galeria */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
@@ -373,6 +395,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </div>
         </article>
       </div>
+      <div class="cta-strip">
+        <p>Quer provar antes de decidir?<small>Fazemos uma degustação com você, sem compromisso.</small></p>
+        <div class="actions"><a class="btn btn--primary" href="#orcamento" data-wa="Olá, Céu na Boca! Gostaria de agendar uma degustação das fatias para um evento.">Agendar degustação</a></div>
+      </div>
     </div>
   </section>
 
@@ -459,6 +485,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <li><h3>Dia do evento</h3><p>Entregamos no horário, ou levamos carrinho e promotor.</p></li>
         <li><h3>Pós-evento</h3><p>Conversamos sobre como foi e já pensamos no próximo.</p></li>
       </ol>
+      <div class="cta-strip">
+        <p>Comece com um evento piloto.<small>Veja a reação dos convidados na prática antes de fechar uma parceria.</small></p>
+        <div class="actions"><a class="btn btn--primary" href="#orcamento">Pedir orçamento</a></div>
+      </div>
     </div>
   </section>
 
@@ -493,6 +523,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <summary>Com quanta antecedência preciso pedir?</summary>
           <p>Produzimos cada pedido especialmente para o seu evento. Fale com a gente assim que tiver a data, e confirmamos o prazo ideal para o seu pacote.</p>
         </details>
+      </div>
+      <div class="cta-strip">
+        <p>Ficou alguma dúvida?<small>Fale direto com a nossa equipe pelo WhatsApp.</small></p>
+        <div class="actions"><a class="btn btn--ghost" href="#orcamento" data-wa="Olá, Céu na Boca! Tenho uma dúvida sobre as fatias para eventos."><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.2 7.8c-.4 0-.9.4-.9 1.2 0 2.9 3.6 6.6 6.6 6.6.8 0 1.2-.5 1.2-.9l.1-.9-2-1-.9.8c-1.2-.5-2.3-1.6-2.8-2.8l.8-.9-1-2z" fill="currentColor"/></svg> Falar no WhatsApp</a></div>
       </div>
     </div>
   </section>
@@ -567,6 +601,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </section>
 </main>
 
+<a class="wa-float" id="wa-float" href="#orcamento" data-wa="Olá, Céu na Boca! Quero saber mais sobre as fatias para eventos." aria-label="Falar com a Céu na Boca no WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.2 7.8c-.4 0-.9.4-.9 1.2 0 2.9 3.6 6.6 6.6 6.6.8 0 1.2-.5 1.2-.9l.1-.9-2-1-.9.8c-1.2-.5-2.3-1.6-2.8-2.8l.8-.9-1-2z" fill="currentColor"/></svg><span>Fale com a gente</span></a>
+
 <footer>
   <div class="wrap">
     <span><strong>Céu na Boca Doces</strong> · CNPJ: 56.824.343/0001-25 - CNB Doces LTDA</span>
@@ -630,6 +666,18 @@ document.getElementById('copy').addEventListener('click', () => {
 });
 
 update();
+
+// Links diretos de WhatsApp (degustacao, duvidas, botao flutuante)
+document.querySelectorAll('[data-wa]').forEach(a => {
+  a.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(a.dataset.wa)}`;
+  a.target = '_blank'; a.rel = 'noopener';
+});
+// Esconde o botao flutuante enquanto o formulario de orcamento esta na tela
+const waFloat = document.getElementById('wa-float');
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(([e]) => waFloat.classList.toggle('is-hidden', e.isIntersecting), { threshold: 0.25 })
+    .observe(document.getElementById('orcamento'));
+}
 
 // Galeria do Instagram: cole aqui os links dos posts do @ceunabocaoficial
 // (ex.: 'https://www.instagram.com/p/XXXXXXXXXXX/'). Com a lista vazia,

@@ -86,6 +86,7 @@ a { color: inherit; }
 }
 .band { padding-block: clamp(64px, 9vw, 112px); }
 .band--alt { background: var(--sky-2); }
+.hero + .band { padding-top: clamp(16px, 3vw, 32px); }
 .eyebrow {
   font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
   color: var(--berry);
@@ -164,19 +165,6 @@ body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 
   position: absolute; top: 0; right: 0; z-index: 2;
   background: var(--cloud); border: 1px solid var(--line); border-radius: 999px;
   padding: 6px 12px; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
-}
-
-/* Beneficios */
-.benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-.benefit { display: grid; gap: 8px; align-content: start; border-top: 2px solid var(--ink); padding-top: 18px; }
-.benefit h3 { font-size: 21px; font-weight: 700; }
-.benefit p { color: var(--ink-soft); font-size: 16px; }
-@media (max-width: 900px) { .benefits { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) {
-  .benefits { gap: 28px 18px; }
-  .benefit { gap: 6px; padding-top: 14px; }
-  .benefit h3 { font-size: 18px; line-height: 1.15; }
-  .benefit p { font-size: 14.5px; line-height: 1.5; }
 }
 
 /* Sabores */
@@ -392,21 +380,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="slice s-berry"><div class="deco"></div><div class="body"></div></div>
         <div class="slice s-lemon"><div class="deco"></div><div class="body"></div></div>
         <div class="slice s-banoffee"><div class="deco"></div><div class="body"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--alt" aria-labelledby="porque">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Por que funciona</span>
-        <h2 id="porque">Praticidade para quem organiza, experiência para quem chega.</h2>
-      </div>
-      <div class="benefits">
-        <div class="benefit"><h3>Zero desperdício</h3><p>Cada fatia é feita especialmente pra uma pessoa. Sem mesa de doces pela metade no fim da festa.</p></div>
-        <div class="benefit"><h3>Logística simples</h3><p>Entregamos tudo embalado, no horário e local combinados. É só distribuir. Ou, se quiser, deixa isso com a gente também!</p></div>
-        <div class="benefit"><h3>Apresentação premium</h3><p>Sobremesa artesanal com uma cara DIVINA. O tipo de detalhe que os convidados amam.</p></div>
-        <div class="benefit"><h3>Memória positiva</h3><p>Um bom doce muda o clima do evento. As pessoas saem comentando e querendo mais.</p></div>
       </div>
     </div>
   </section>

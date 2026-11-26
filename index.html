@@ -166,13 +166,42 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Sabores */
 .flavors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.flavor { background: var(--cloud); border-radius: var(--r); padding: 28px; display: grid; gap: 14px; align-content: start; min-width: 0; }
-.flavor .slice { width: 120px; }
+.flavor { background: var(--cloud); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; min-width: 0; box-shadow: 0 1px 0 var(--line); }
+.flavor-photo { margin: 0; aspect-ratio: 5 / 4; overflow: hidden; background: var(--sky-2); }
+.flavor-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.flavor:hover .flavor-photo img { transform: scale(1.04); }
+.flavor-photo--berry img { object-position: 50% 62%; }
+.flavor-photo--lemon img, .flavor-photo--banoffee img { object-position: 50% 48%; }
+.flavor-body { display: flex; flex-direction: column; gap: 12px; padding: 24px 28px 28px; flex: 1; }
 .flavor h3 { font-size: 30px; font-weight: 800; }
-.flavor .note { font-size: 14px; font-weight: 700; color: var(--berry); }
+.flavor .note { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--berry); }
 .flavor p { color: var(--ink-soft); font-size: 16px; }
-.flavor blockquote { margin: 4px 0 0; padding-top: 14px; border-top: 1px dashed var(--line); font-weight: 600; font-size: 16px; }
-@media (max-width: 900px) { .flavors { grid-template-columns: 1fr; } }
+.flavor blockquote { margin: auto 0 0; padding-top: 16px; border-top: 1px dashed var(--line); font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.3; }
+@media (max-width: 900px) {
+  .flavors { grid-template-columns: 1fr; }
+  .flavor { flex-direction: row; }
+  .flavor-photo { flex: 0 0 42%; aspect-ratio: auto; }
+}
+@media (max-width: 600px) {
+  .flavor { flex-direction: column; }
+  .flavor-photo { flex: none; aspect-ratio: 5 / 4; }
+  .flavor-body { padding: 22px 20px 24px; }
+}
+
+/* Galeria */
+.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.gallery a { position: relative; display: block; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: var(--sky-2); text-decoration: none; }
+.gallery img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.gallery a:hover img { transform: scale(1.05); }
+.gallery .ig-badge { position: absolute; right: 10px; bottom: 10px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--cloud); color: var(--ink); opacity: .92; }
+.gallery .ig-cta { display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 22px; background: var(--berry); color: var(--berry-ink); }
+.gallery .ig-cta svg { width: 32px; height: 32px; flex: none; }
+.gallery .ig-cta strong { font-family: var(--f-display); font-size: clamp(20px, 2.2vw, 26px); line-height: 1.1; }
+.gallery .ig-cta span { font-weight: 600; font-size: 15px; }
+.gallery-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 36px; }
+.gallery-head .section-head { margin-bottom: 0; }
+@media (max-width: 760px) { .gallery { grid-template-columns: 1fr 1fr; } }
+@media (prefers-reduced-motion: reduce) { .flavor-photo img, .gallery img { transition: none; } }
 
 /* Pacotes */
 .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
@@ -313,25 +342,31 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
       <div class="flavors">
         <article class="flavor">
-          <div class="slice s-berry" aria-hidden="true"><div class="deco"></div><div class="body"></div></div>
+          <figure class="flavor-photo flavor-photo--berry"><img src="images/skyberry.webp" alt="Fatia de Skyberry com morangos, mousse de leite condensado e suspiros, sobre prato azul" width="900" height="900" loading="lazy" decoding="async"></figure>
+          <div class="flavor-body">
           <span class="note">Leve e refrescante</span>
           <h3>Skyberry</h3>
           <p>Skyberry, nossa queridinha que é um pedacinho do céu na boca! Deliciosamente construída sobre uma base de irresistíveis biscoitos de chocolate, abriga uma suave camada do nosso exclusivo mousse de leite condensado. Acima, uma camada cítrica de morangos selecionados acrescenta uma explosão de frescor. Finalizamos essa obra-prima com suspiros que derretem na boca, harmoniosamente dispostos sobre uma cama de nosso chantilly especial.</p>
           <blockquote>Quem prova uma vez sempre quer mais.</blockquote>
+          </div>
         </article>
         <article class="flavor">
-          <div class="slice s-lemon" aria-hidden="true"><div class="deco"></div><div class="body"></div></div>
+          <figure class="flavor-photo flavor-photo--lemon"><img src="images/skylemon.webp" alt="Fatia de Skylemon com mousse de limão, chantilly e suspiros, com rodelas de limão ao lado" width="900" height="900" loading="lazy" decoding="async"></figure>
+          <div class="flavor-body">
           <span class="note">Sofisticado e cítrico</span>
           <h3>Skylemon</h3>
           <p>Uma torta de limão divina que promete encantar seu paladar! Composta por uma base crocante de biscoito, seguida de uma generosa camada do nosso irresistível mousse, ambos meticulosamente preparados com suculentos limões frescos. Para finalizar, uma camada generosa de chantilly cremoso é delicadamente decorada com doces suspiros e suaves flocos de limão.</p>
           <blockquote>A sobremesa que todo mundo comenta.</blockquote>
+          </div>
         </article>
         <article class="flavor">
-          <div class="slice s-banoffee" aria-hidden="true"><div class="deco"></div><div class="body"></div></div>
+          <figure class="flavor-photo flavor-photo--banoffee"><img src="images/banoffee.webp" alt="Fatia de Banoffee com doce de leite, bananas, chantilly e cacau polvilhado" width="900" height="900" loading="lazy" decoding="async"></figure>
+          <div class="flavor-body">
           <span class="note">Clássico e afetivo</span>
           <h3>Banoffee</h3>
           <p>A tradicional e sofisticada torta à base de biscoito com uma camada do nosso doce de leite artesanal, ganache de chocolate, bananas frescas e selecionadas, uma cobertura caprichada de chantilly e uma generosa quantidade de cacau polvilhado.</p>
           <blockquote>Aquele sabor que faz todo mundo sorrir.</blockquote>
+          </div>
         </article>
       </div>
     </div>
@@ -507,6 +542,24 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </div>
           <p class="form-status" id="status"></p>
         </form>
+      </div>
+    </div>
+  </section>
+  <section class="band" id="galeria" aria-labelledby="gal-t">
+    <div class="wrap">
+      <div class="gallery-head">
+        <div class="section-head">
+          <span class="eyebrow">Galeria</span>
+          <h2 id="gal-t">Um pedacinho do nosso Instagram.</h2>
+          <p>Fatias, bastidores e eventos. Acompanhe as novidades no @ceunaboca.</p>
+        </div>
+        <a class="btn btn--ghost" href="https://www.instagram.com/ceunaboca/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg> Seguir @ceunaboca</a>
+      </div>
+      <div class="gallery">
+        <a href="https://www.instagram.com/ceunaboca/" target="_blank" rel="noopener"><img src="images/skyberry.webp" alt="Skyberry no Instagram da Céu na Boca" width="900" height="900" loading="lazy" decoding="async"><span class="ig-badge"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></span></a>
+        <a href="https://www.instagram.com/ceunaboca/" target="_blank" rel="noopener"><img src="images/skylemon.webp" alt="Skylemon no Instagram da Céu na Boca" width="900" height="900" loading="lazy" decoding="async"><span class="ig-badge"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></span></a>
+        <a href="https://www.instagram.com/ceunaboca/" target="_blank" rel="noopener"><img src="images/banoffee.webp" alt="Banoffee no Instagram da Céu na Boca" width="900" height="900" loading="lazy" decoding="async"><span class="ig-badge"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></span></a>
+        <a class="ig-cta" href="https://www.instagram.com/ceunaboca/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg><strong>Veja mais no Instagram</strong><span>@ceunaboca →</span></a>
       </div>
     </div>
   </section>
